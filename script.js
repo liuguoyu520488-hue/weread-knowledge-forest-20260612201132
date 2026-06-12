@@ -131,10 +131,10 @@ function renderGoldLeaves(count) {
   return Array.from({ length: count }, (_, index) => {
     const angle = (index * 137.5) % 360;
     const band = index % 6;
-    const radiusX = 16 + band * 5;
-    const radiusY = 20 + band * 5;
+    const radiusX = 12 + band * 5;
+    const radiusY = 8 + band * 3;
     const left = 50 + Math.cos(angle * Math.PI / 180) * radiusX;
-    const top = 50 + Math.sin(angle * Math.PI / 180) * radiusY;
+    const top = 40 + Math.sin(angle * Math.PI / 180) * radiusY;
     const rotate = -42 + ((index * 31) % 84);
     const scale = 0.82 + ((index % 4) * 0.08);
 
@@ -150,8 +150,8 @@ function renderTree(book) {
       <span class="tree-detail detail-a"></span>
       <span class="tree-detail detail-b"></span>
       <span class="tree-detail detail-c"></span>
+      <div class="gold-leaves" aria-hidden="true">${renderGoldLeaves(book.leaves)}</div>
     </div>
-    <div class="gold-leaves" aria-hidden="true">${renderGoldLeaves(book.leaves)}</div>
   `;
 }
 
