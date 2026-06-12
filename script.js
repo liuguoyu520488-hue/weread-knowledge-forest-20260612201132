@@ -31,14 +31,14 @@ const species = [
 ];
 
 const books = [
-  { id: 1, title: "《活着》", type: "文学类", progress: 100, leaves: 3, status: "已成熟" },
-  { id: 2, title: "《人类简史》", type: "历史类", progress: 75, leaves: 2, status: "成长中" },
-  { id: 3, title: "《三体》", type: "科幻类", progress: 60, leaves: 1, status: "成长中" },
-  { id: 4, title: "《百年孤独》", type: "文学类", progress: 40, leaves: 0, status: "成长中" },
-  { id: 5, title: "《置身事内》", type: "经济管理类", progress: 30, leaves: 1, status: "成长中" },
-  { id: 6, title: "《蛤蟆先生去看心理医生》", type: "心理学类", progress: 90, leaves: 4, status: "成长中" },
-  { id: 7, title: "《凡人修仙传》", type: "修仙类", progress: 20, leaves: 0, status: "休眠中" },
-  { id: 8, title: "《明朝那些事儿》", type: "历史类", progress: 50, leaves: 2, status: "成长中" }
+  { id: 1, title: "《活着》", type: "文学类", progress: 100, leaves: 3, status: "已成熟", note: "完成阅读后，适合沉淀成一棵安静的知识古树。" },
+  { id: 2, title: "《人类简史》", type: "历史类", progress: 75, leaves: 2, status: "成长中", note: "历史类阅读正在开花，说明用户已经形成了阶段性理解。" },
+  { id: 3, title: "《三体》", type: "科幻类", progress: 60, leaves: 1, status: "成长中", note: "科幻阅读让森林出现星光树，保留想象力的痕迹。" },
+  { id: 4, title: "《百年孤独》", type: "文学类", progress: 40, leaves: 0, status: "成长中", note: "小树还在生长，等待用户留下第一片黄金叶。" },
+  { id: 5, title: "《置身事内》", type: "经济管理类", progress: 30, leaves: 1, status: "成长中", note: "管理类阅读适合和现实问题连接，想法会让橡树更有层次。" },
+  { id: 6, title: "《蛤蟆先生去看心理医生》", type: "心理学类", progress: 90, leaves: 4, status: "成长中", note: "接近成熟的枫树，记录了较多自我观察和阅读想法。" },
+  { id: 7, title: "《凡人修仙传》", type: "修仙类", progress: 20, leaves: 0, status: "休眠中", note: "灵树暂时休眠，重新阅读后会恢复生长。" },
+  { id: 8, title: "《明朝那些事儿》", type: "历史类", progress: 50, leaves: 2, status: "成长中", note: "读到一半的银杏树，已经有了两次可见的思考记录。" }
 ];
 
 const overviewBase = {
@@ -80,6 +80,26 @@ function getSpecies(type) {
   return species.find(item => item.type === type) || { tree: "书树", color: "#9bc69a" };
 }
 
+function getTreeClass(type) {
+  const classMap = {
+    "文学类": "tree-sakura",
+    "历史类": "tree-ginkgo",
+    "哲学类": "tree-pine",
+    "心理学类": "tree-maple",
+    "科技类": "tree-spruce",
+    "经济管理类": "tree-oak",
+    "玄幻类": "tree-world",
+    "修仙类": "tree-spirit",
+    "武侠类": "tree-bamboo",
+    "科幻类": "tree-starlight",
+    "悬疑类": "tree-shadow",
+    "都市类": "tree-flame",
+    "言情类": "tree-flower",
+    "无限流": "tree-time"
+  };
+  return classMap[type] || "tree-generic";
+}
+
 function getStatusClass(status) {
   if (status === "已成熟") return "mature";
   if (status === "休眠中") return "sleeping";
@@ -108,14 +128,29 @@ function renderStats() {
 }
 
 function renderGoldLeaves(count) {
-  return Array.from({ length: Math.min(count, 6) }, () => '<span class="gold-leaf"></span>').join("");
+  return Array.from({ length: count }, (_, index) => {
+    const angle = (index * 137.5) % 360;
+    const band = index % 6;
+    const radiusX = 16 + band * 5;
+    const radiusY = 20 + band * 5;
+    const left = 50 + Math.cos(angle * Math.PI / 180) * radiusX;
+    const top = 50 + Math.sin(angle * Math.PI / 180) * radiusY;
+    const rotate = -42 + ((index * 31) % 84);
+    const scale = 0.82 + ((index % 4) * 0.08);
+
+    return `<span class="gold-leaf" style="left: ${left.toFixed(1)}%; top: ${top.toFixed(1)}%; --leaf-rotate: ${rotate}deg; --leaf-scale: ${scale.toFixed(2)};"></span>`;
+  }).join("");
 }
 
 function renderTree(book) {
   const stage = getStage(book.progress);
   const speciesInfo = getSpecies(book.type);
   return `
-    <div class="tree-visual" style="--species-color: ${speciesInfo.color}" aria-hidden="true"></div>
+    <div class="tree-visual ${getTreeClass(book.type)}" style="--species-color: ${speciesInfo.color}" aria-hidden="true">
+      <span class="tree-detail detail-a"></span>
+      <span class="tree-detail detail-b"></span>
+      <span class="tree-detail detail-c"></span>
+    </div>
     <div class="gold-leaves" aria-hidden="true">${renderGoldLeaves(book.leaves)}</div>
   `;
 }
@@ -139,6 +174,7 @@ function renderForest() {
         <div class="tree-wrap">${renderTree(book)}</div>
         <h3 class="book-title">${book.title}</h3>
         <p class="book-stage">${stage.name} · 黄金叶 ${book.leaves} 片</p>
+        <p class="book-note">${book.note}</p>
         <div class="progress-track" aria-hidden="true">
           <div class="progress-fill" style="width: ${book.progress}%"></div>
         </div>
@@ -199,7 +235,7 @@ function openModal(bookId) {
     <span>黄金叶：${book.leaves} 片</span>
     <span>阅读状态：${book.status}</span>
   `;
-  modalHint.textContent = getHint(book);
+  modalHint.textContent = `${getHint(book)} ${book.note}`;
   readMoreButton.disabled = book.progress >= 100;
   readMoreButton.textContent = book.progress >= 100 ? "已经成熟" : "继续阅读 5%";
   modal.classList.add("open");
