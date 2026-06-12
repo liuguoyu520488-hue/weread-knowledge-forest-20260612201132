@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>微信读书 · 知识森林</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="top-nav" aria-label="页面导航">
+      <a class="brand" href="#hero" aria-label="微信读书知识森林首页">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>微信读书 · 知识森林</span>
+      </a>
+      <div class="nav-links">
+        <a href="#forest">我的森林</a>
+        <a href="#rules">成长规则</a>
+        <a href="#records">阅读记录</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">微信读书游戏化改造方案</p>
+        <h1>微信读书 · 知识森林</h1>
+        <p class="subtitle">一本书，一棵树；一次思考，一片黄金叶。</p>
+      </div>
+      <div class="hero-forest" aria-hidden="true">
+        <span class="hill hill-one"></span>
+        <span class="hill hill-two"></span>
+        <span class="hero-tree tree-a"></span>
+        <span class="hero-tree tree-b"></span>
+        <span class="hero-tree tree-c"></span>
+        <span class="gold-glint glint-a"></span>
+        <span class="gold-glint glint-b"></span>
+      </div>
+    </section>
+
+    <section class="overview" aria-labelledby="overview-title">
+      <div class="section-heading compact">
+        <p class="eyebrow">阅读生长概览</p>
+        <h2 id="overview-title">这片森林最近的样子</h2>
+      </div>
+      <div class="stats-grid" id="statsGrid"></div>
+    </section>
+
+    <section class="forest-section" id="forest" aria-labelledby="forest-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">我的森林</p>
+          <h2 id="forest-title">每本书都有自己的生长轨迹</h2>
+        </div>
+        <p>阅读让树长高，想法让叶片发亮。这里展示的是一个轻量的游戏化层，不打断阅读，只把持续和思考留下来。</p>
+      </div>
+
+      <div class="filter-bar" aria-label="按书籍类型筛选">
+        <button class="filter-button active" type="button" data-filter="全部">全部</button>
+        <button class="filter-button" type="button" data-filter="文学类">文学</button>
+        <button class="filter-button" type="button" data-filter="历史类">历史</button>
+        <button class="filter-button" type="button" data-filter="科幻类">科幻</button>
+        <button class="filter-button" type="button" data-filter="心理学类">心理学</button>
+        <button class="filter-button" type="button" data-filter="经济管理类">经济管理</button>
+        <button class="filter-button" type="button" data-filter="修仙类">修仙</button>
+      </div>
+
+      <div class="forest-grid" id="forestGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="growth-section" id="rules" aria-labelledby="growth-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">成长规则</p>
+          <h2 id="growth-title">读到哪里，树就长到哪里</h2>
+        </div>
+        <p>阶段跟随阅读进度变化，不催促，也不评判，只让进度变得更容易被看见。</p>
+      </div>
+      <div class="timeline" id="growthTimeline"></div>
+    </section>
+
+    <section class="species-section" aria-labelledby="species-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">树种分类</p>
+          <h2 id="species-title">书的类型，会慢慢改变森林的气质</h2>
+        </div>
+        <p class="callout-text">用户阅读什么类型的书，森林就会长成什么样。</p>
+      </div>
+      <div class="species-grid" id="speciesGrid"></div>
+    </section>
+
+    <section class="mechanics-grid" id="records" aria-label="机制说明">
+      <article class="mechanic-card gold-card">
+        <p class="eyebrow">黄金叶片</p>
+        <h2>普通叶片代表阅读，黄金叶片代表思考。</h2>
+        <p class="feature-line">树木记录阅读进度，黄金叶片记录思考深度。</p>
+        <ul>
+          <li>发表书评时，树上长出一片黄金叶。</li>
+          <li>写下评论时，想法会被保存在这棵树旁。</li>
+          <li>发布阅读想法或完成总结后，叶片会更亮一点。</li>
+        </ul>
+        <div class="leaf-demo" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </article>
+
+      <article class="mechanic-card sleep-card">
+        <p class="eyebrow">休眠机制</p>
+        <h2>有些书只是暂时停在路上。</h2>
+        <p>这不是惩罚，而是提醒：还有一本书在等你回来。</p>
+        <div class="sleep-steps">
+          <span>7天未读：叶片变黄</span>
+          <span>15天未读：部分落叶</span>
+          <span>30天未读：进入休眠</span>
+          <span>重新阅读后：树木恢复生机</span>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div class="modal" id="bookModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <article class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" type="button" aria-label="关闭详情" data-close-modal>×</button>
+      <div class="modal-tree" id="modalTree" aria-hidden="true"></div>
+      <p class="eyebrow" id="modalType"></p>
+      <h2 id="modalTitle"></h2>
+      <div class="modal-meta" id="modalMeta"></div>
+      <p class="modal-hint" id="modalHint"></p>
+      <div class="modal-actions">
+        <button class="primary-action" type="button" id="readMoreButton">继续阅读 5%</button>
+        <button class="secondary-action" type="button" id="goldLeafButton">写下想法，获得黄金叶</button>
+      </div>
+    </article>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
