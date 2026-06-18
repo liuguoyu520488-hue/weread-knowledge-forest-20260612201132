@@ -71,6 +71,7 @@ const modalHint = document.querySelector("#modalHint");
 const readMoreButton = document.querySelector("#readMoreButton");
 const goldLeafButton = document.querySelector("#goldLeafButton");
 const filterButtons = document.querySelectorAll(".filter-button");
+const hero = document.querySelector(".game-hero");
 
 function getStage(progress) {
   return stages.reduce((current, stage) => progress >= stage.progress ? stage : current, stages[0]);
@@ -280,7 +281,42 @@ function addGoldLeaf() {
   });
 }
 
+function bindHeroMotion() {
+  if (!hero) return;
+
+  let rafId = null;
+
+  const updatePointer = event => {
+    const rect = hero.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      hero.style.setProperty("--mx", x.toFixed(3));
+      hero.style.setProperty("--my", y.toFixed(3));
+      hero.classList.add("is-awake");
+    });
+  };
+
+  const updateScroll = () => {
+    const rect = hero.getBoundingClientRect();
+    const progress = Math.min(1, Math.max(0, Math.abs(rect.top) / Math.max(1, rect.height * 0.75)));
+    hero.style.setProperty("--hero-scroll", progress.toFixed(3));
+  };
+
+  hero.addEventListener("pointermove", updatePointer);
+  hero.addEventListener("pointerenter", () => hero.classList.add("is-awake"));
+  hero.addEventListener("focusin", () => hero.classList.add("is-awake"));
+  window.addEventListener("scroll", updateScroll, { passive: true });
+  updateScroll();
+
+  setTimeout(() => hero.classList.add("is-awake"), 1200);
+}
+
 function bindEvents() {
+  bindHeroMotion();
+
   filterButtons.forEach(button => {
     button.addEventListener("click", () => {
       activeFilter = button.dataset.filter;
