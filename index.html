@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>微信读书 · 知识森林</title>
+  <title>微信读书 · 知识树林</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="site-header">
     <nav class="top-nav" aria-label="页面导航">
-      <a class="brand" href="#hero" aria-label="微信读书知识森林首页">
+      <a class="brand" href="#hero" aria-label="微信读书知识树林首页">
         <span class="brand-mark" aria-hidden="true"></span>
-        <span>微信读书 · 知识森林</span>
+        <span>微信读书 · 知识树林</span>
       </a>
       <div class="nav-links">
         <a href="#forest">我的森林</a>
@@ -22,25 +22,105 @@
   </header>
 
   <main>
-    <section class="hero" id="hero">
+    <section class="hero game-hero" id="hero">
+      <div class="hero-grid" aria-hidden="true"></div>
       <div class="hero-copy">
-        <p class="eyebrow">微信读书游戏化改造方案</p>
-        <h1><span>微信读书</span><span>知识森林</span></h1>
-        <p class="subtitle">一本书，一棵树；一次思考，一片黄金叶。</p>
-        <p class="hero-note">这个原型不是把阅读改造成游戏，而是在微信读书原有的阅读记录、评论、书评和想法功能之上，加一层更温和的成长反馈。</p>
+        <h1><span>微信读书</span><span>知识树林</span></h1>
       </div>
-      <div class="hero-forest" aria-hidden="true">
-        <span class="hill hill-one"></span>
-        <span class="hill hill-two"></span>
-        <span class="hero-tree tree-a"></span>
-        <span class="hero-tree tree-b"></span>
-        <span class="hero-tree tree-c"></span>
-        <span class="gold-glint glint-a"></span>
-        <span class="gold-glint glint-b"></span>
+      <div class="hero-forest gamified-trees" aria-hidden="true">
+        <div class="tree-stage dormant-stage" data-depth="-1">
+          <svg class="concept-tree dormant-tree" viewBox="0 0 320 420" role="img" aria-label="枯树被激活后生长">
+            <defs>
+              <linearGradient id="dormantWood" x1="0" x2="1" y1="1" y2="0">
+                <stop offset="0" stop-color="#1a1515" />
+                <stop offset="0.56" stop-color="#58413a" />
+                <stop offset="1" stop-color="#93806f" />
+              </linearGradient>
+              <linearGradient id="awakeGreen" x1="0" x2="1" y1="1" y2="0">
+                <stop offset="0" stop-color="#1fe36c" />
+                <stop offset="1" stop-color="#a9ffb8" />
+              </linearGradient>
+            </defs>
+            <path class="root-line" d="M160 388 C146 350 149 311 158 268 C168 220 167 178 158 130" />
+            <path class="branch branch-a" d="M158 230 C116 214 84 184 58 146" />
+            <path class="branch branch-b" d="M162 206 C204 184 232 151 254 102" />
+            <path class="branch branch-c" d="M158 174 C123 152 105 119 92 76" />
+            <path class="branch branch-d" d="M164 150 C195 127 205 100 208 54" />
+            <path class="branch branch-e" d="M160 284 C121 278 87 264 52 236" />
+            <path class="branch branch-f" d="M163 268 C202 259 235 236 270 198" />
+            <path class="awake-line" d="M160 386 C149 337 154 285 166 240 C177 199 177 165 164 126" />
+            <g class="new-growth">
+              <ellipse cx="57" cy="144" rx="9" ry="15" />
+              <ellipse cx="89" cy="77" rx="8" ry="13" />
+              <ellipse cx="210" cy="55" rx="10" ry="16" />
+              <ellipse cx="255" cy="101" rx="9" ry="14" />
+              <ellipse cx="270" cy="198" rx="11" ry="16" />
+              <ellipse cx="52" cy="236" rx="9" ry="13" />
+            </g>
+            <g class="activation-particles">
+              <circle cx="92" cy="190" r="3" />
+              <circle cx="224" cy="154" r="2.5" />
+              <circle cx="138" cy="111" r="2" />
+              <circle cx="198" cy="286" r="3" />
+            </g>
+          </svg>
+        </div>
+
+        <div class="tree-stage alive-stage" data-depth="1">
+          <svg class="concept-tree alive-tree" viewBox="0 0 440 460" role="img" aria-label="充满反馈节点的绿树">
+            <defs>
+              <radialGradient id="aliveCrown" cx="50%" cy="42%" r="62%">
+                <stop offset="0" stop-color="#baffc7" stop-opacity="0.92" />
+                <stop offset="0.43" stop-color="#34e980" stop-opacity="0.72" />
+                <stop offset="1" stop-color="#0a7e4d" stop-opacity="0.36" />
+              </radialGradient>
+              <linearGradient id="aliveStem" x1="0" x2="1" y1="1" y2="0">
+                <stop offset="0" stop-color="#1c302b" />
+                <stop offset="1" stop-color="#4be486" />
+              </linearGradient>
+            </defs>
+            <path class="alive-root" d="M217 428 C207 360 214 307 231 254 C243 215 245 172 228 130" />
+            <path class="signal-line line-a" d="M224 248 C166 228 132 190 106 142" />
+            <path class="signal-line line-b" d="M234 228 C286 206 324 170 346 112" />
+            <path class="signal-line line-c" d="M224 186 C180 164 153 132 140 78" />
+            <path class="signal-line line-d" d="M235 182 C281 155 300 122 303 68" />
+            <path class="signal-line line-e" d="M224 290 C172 292 122 278 76 236" />
+            <path class="signal-line line-f" d="M238 288 C291 286 333 266 376 222" />
+            <g class="crown">
+              <circle cx="158" cy="158" r="82" />
+              <circle cx="246" cy="116" r="94" />
+              <circle cx="310" cy="190" r="88" />
+              <circle cx="205" cy="238" r="106" />
+              <circle cx="284" cy="270" r="82" />
+            </g>
+            <g class="feedback-nodes">
+              <circle cx="106" cy="142" r="8" />
+              <circle cx="346" cy="112" r="8" />
+              <circle cx="140" cy="78" r="6" />
+              <circle cx="303" cy="68" r="7" />
+              <circle cx="76" cy="236" r="7" />
+              <circle cx="376" cy="222" r="8" />
+              <circle cx="242" cy="126" r="5" />
+              <circle cx="204" cy="256" r="6" />
+            </g>
+            <g class="leaf-cluster">
+              <ellipse cx="142" cy="170" rx="13" ry="22" />
+              <ellipse cx="187" cy="108" rx="11" ry="19" />
+              <ellipse cx="300" cy="144" rx="12" ry="20" />
+              <ellipse cx="336" cy="228" rx="13" ry="22" />
+              <ellipse cx="192" cy="282" rx="12" ry="19" />
+              <ellipse cx="268" cy="284" rx="11" ry="18" />
+            </g>
+          </svg>
+        </div>
+
+        <div class="hero-connection" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
       </div>
     </section>
 
-    <section class="overview" aria-labelledby="overview-title">
+    <section class="overview" id="project" aria-labelledby="overview-title">
       <div class="section-heading compact">
         <p class="eyebrow">阅读生长概览</p>
         <h2 id="overview-title">这片森林最近的样子</h2>
@@ -75,7 +155,7 @@
       </div>
     </section>
 
-    <section class="journey-section" aria-labelledby="journey-title">
+    <section class="journey-section" id="journey" aria-labelledby="journey-title">
       <div class="section-heading">
         <div>
           <p class="eyebrow">用户旅程</p>
@@ -175,7 +255,7 @@
       </article>
     </section>
 
-    <section class="boundary-section" aria-labelledby="boundary-title">
+    <section class="boundary-section" id="conclusion" aria-labelledby="boundary-title">
       <div class="section-heading">
         <div>
           <p class="eyebrow">设计边界</p>
