@@ -1960,6 +1960,147 @@ h3 {
   box-shadow: 22px 9px 0 var(--green-pale), 10px 36px 0 var(--yellow), 31px 42px 0 #ffffff;
 }
 
+/* Animated gradient titles: adapted from the requested component for this vanilla site. */
+.animated-gradient-text {
+  position: relative;
+  margin-right: auto;
+  margin-left: 0;
+  display: block;
+  max-width: 100%;
+  border-radius: 1.25rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  transition: box-shadow 0.5s ease-out;
+  overflow: visible;
+  cursor: pointer;
+}
+
+.animated-gradient-text.with-border {
+  padding: 0.35rem 0.75rem;
+}
+
+.gradient-overlay {
+  position: absolute;
+  inset: -0.18em -0.1em;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 16% 50%, rgba(201, 161, 47, 0.16), transparent 10rem),
+    linear-gradient(90deg, transparent, rgba(50, 184, 106, 0.1), transparent);
+  transition: opacity 0.5s ease-out;
+}
+
+.gradient-overlay::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  border-radius: inherit;
+  transform: translate(-50%, -50%);
+  background-color: rgba(251, 255, 247, 0.72);
+  z-index: -1;
+}
+
+.text-content {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  background:
+    linear-gradient(90deg, var(--green-deep) 0%, var(--green) 34%, var(--yellow) 58%, var(--green-deep) 100%);
+  background-size: 240% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: titleGradientFlow 7s ease-in-out infinite;
+}
+
+.split-parent {
+  text-align: inherit;
+  overflow: hidden;
+  white-space: normal;
+  word-wrap: break-word;
+  will-change: transform, opacity;
+}
+
+.split-char,
+.split-space {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.split-char {
+  opacity: 0;
+  transform: translate3d(0, 0.72em, 0);
+  transition:
+    opacity 0.82s cubic-bezier(0.19, 1, 0.22, 1),
+    transform 0.82s cubic-bezier(0.19, 1, 0.22, 1);
+  transition-delay: calc(var(--char-index, 0) * 34ms);
+}
+
+.split-space {
+  width: 0.34em;
+}
+
+.animated-gradient-text.is-visible .gradient-overlay {
+  opacity: 1;
+}
+
+.animated-gradient-text.is-visible .split-char {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.animated-gradient-text:hover {
+  box-shadow: 0 18px 46px rgba(43, 111, 61, 0.08);
+}
+
+.hero h1.animated-gradient-text {
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  align-items: center;
+  flex-direction: column;
+  cursor: default;
+}
+
+.hero h1.animated-gradient-text .text-content {
+  display: block;
+}
+
+.section-heading h2.animated-gradient-text,
+.mechanic-card h2.animated-gradient-text {
+  margin-bottom: 12px;
+  cursor: default;
+}
+
+.section-heading h2.animated-gradient-text .text-content,
+.mechanic-card h2.animated-gradient-text .text-content {
+  display: inline;
+  max-width: 100%;
+}
+
+@keyframes titleGradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-content {
+    animation: none;
+  }
+
+  .split-char {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 @media (max-width: 980px) {
   .hero {
     min-height: 100vh;
