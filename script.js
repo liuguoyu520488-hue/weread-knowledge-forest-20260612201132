@@ -14,20 +14,20 @@ const stages = [
 ];
 
 const species = [
-  { type: "文学类", tree: "樱花树", color: "#e9b8bf" },
-  { type: "历史类", tree: "银杏树", color: "#d6bb62" },
-  { type: "哲学类", tree: "古松", color: "#6f8f63" },
-  { type: "心理学类", tree: "枫树", color: "#c97d62" },
-  { type: "科技类", tree: "蓝杉", color: "#7ea8bd" },
-  { type: "经济管理类", tree: "橡树", color: "#9e8f5f" },
-  { type: "玄幻类", tree: "世界树", color: "#8d79b4" },
-  { type: "修仙类", tree: "灵树", color: "#8dbf9b" },
-  { type: "武侠类", tree: "竹林", color: "#72a96f" },
-  { type: "科幻类", tree: "星光树", color: "#8ca6d8" },
-  { type: "悬疑类", tree: "暗影树", color: "#7d7d83" },
-  { type: "都市类", tree: "凤凰木", color: "#d98a62" },
-  { type: "言情类", tree: "花树", color: "#e6a6c2" },
-  { type: "无限流", tree: "时空树", color: "#8fb8c8" }
+  { type: "文学类", tree: "樱花树", color: "#8edc96" },
+  { type: "历史类", tree: "银杏树", color: "#c9a12f" },
+  { type: "哲学类", tree: "古松", color: "#2b8f4a" },
+  { type: "心理学类", tree: "枫树", color: "#b7cf69" },
+  { type: "科技类", tree: "蓝杉", color: "#64c476" },
+  { type: "经济管理类", tree: "橡树", color: "#b99735" },
+  { type: "玄幻类", tree: "世界树", color: "#4fb86b" },
+  { type: "修仙类", tree: "灵树", color: "#98df8d" },
+  { type: "武侠类", tree: "竹林", color: "#6fbe68" },
+  { type: "科幻类", tree: "星光树", color: "#d7bd55" },
+  { type: "悬疑类", tree: "暗影树", color: "#7fae56" },
+  { type: "都市类", tree: "凤凰木", color: "#b9cf6c" },
+  { type: "言情类", tree: "花树", color: "#a8dd85" },
+  { type: "无限流", tree: "时空树", color: "#c9a12f" }
 ];
 
 const books = [
