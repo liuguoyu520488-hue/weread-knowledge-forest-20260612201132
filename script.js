@@ -314,6 +314,76 @@ function bindHeroMotion() {
   setTimeout(() => hero.classList.add("is-awake"), 1200);
 }
 
+function splitTitleText(container, startIndex) {
+  const text = container.textContent;
+  container.textContent = "";
+
+  return Array.from(text).reduce((index, char) => {
+    const charElement = document.createElement("span");
+    const isSpace = /\s/.test(char);
+    charElement.className = isSpace ? "split-space" : "split-char";
+    charElement.style.setProperty("--char-index", index);
+    charElement.setAttribute("aria-hidden", "true");
+    charElement.textContent = isSpace ? "\u00a0" : char;
+    container.appendChild(charElement);
+    return isSpace ? index : index + 1;
+  }, startIndex);
+}
+
+function enhanceAnimatedHeadings() {
+  const headings = document.querySelectorAll(".hero h1, .section-heading h2, .mechanic-card h2");
+
+  headings.forEach(heading => {
+    if (heading.dataset.animatedTitle === "true") return;
+
+    const originalText = heading.textContent.trim();
+    const overlay = document.createElement("span");
+    overlay.className = "gradient-overlay";
+    overlay.setAttribute("aria-hidden", "true");
+
+    heading.dataset.animatedTitle = "true";
+    heading.classList.add("animated-gradient-text", "split-parent");
+    heading.setAttribute("aria-label", originalText);
+
+    const directLineSpans = Array.from(heading.children).filter(child => child.tagName === "SPAN");
+    if (heading.matches(".hero h1") && directLineSpans.length) {
+      heading.prepend(overlay);
+      directLineSpans.reduce((index, line) => {
+        line.classList.add("text-content");
+        line.setAttribute("aria-hidden", "true");
+        return splitTitleText(line, index);
+      }, 0);
+    } else {
+      heading.textContent = "";
+      const content = document.createElement("span");
+      content.className = "text-content";
+      content.setAttribute("aria-hidden", "true");
+      content.textContent = originalText;
+      heading.append(overlay, content);
+      splitTitleText(content, 0);
+    }
+  });
+
+  const reveal = heading => heading.classList.add("is-visible");
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+    headings.forEach(reveal);
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      reveal(entry.target);
+      observer.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: "-100px 0px"
+  });
+
+  headings.forEach(heading => observer.observe(heading));
+}
+
 function bindEvents() {
   bindHeroMotion();
 
@@ -358,6 +428,7 @@ function init() {
   renderForest();
   renderTimeline();
   renderSpecies();
+  enhanceAnimatedHeadings();
   bindEvents();
 }
 
